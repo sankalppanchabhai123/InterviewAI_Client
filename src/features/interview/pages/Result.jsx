@@ -299,17 +299,7 @@ const ReportBody = ({ data }) => {
                 </aside>
             </div>
 
-            {/* Road Map Section */}
-            <div className="mb-10">
-                <div className="bg-white border border-black/20 rounded-xl overflow-hidden hover:border-black/40 transition-all duration-300">
-                    <div className="px-6 py-4 bg-white border-b border-black/15">
-                        <h2 className="text-xl font-semibold text-[#101114]">Report Summary</h2>
-                    </div>
-                    <div className="p-5 text-sm text-[#7f8792] leading-relaxed">
-                        Click a section on the left to load its content in the main panel. Your skill gaps remain visible on the right for quick reference.
-                    </div>
-                </div>
-            </div>
+
 
             {/* Footer Note */}
             <div className="mt-12 pt-8 text-center border-t border-black/15">

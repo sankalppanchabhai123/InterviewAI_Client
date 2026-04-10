@@ -20,7 +20,7 @@ const EyeIcon = ({ open }) => (
     </svg>
 );
 
-// ── Component ──────────────────────────────────────────────────────────────────
+// ── Component ──────────────────────────────────────────────────────────────
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -42,46 +42,43 @@ export default function Login() {
     };
 
     const inputClass = (focused) =>
-        `w-full bg-[#edf4ff] rounded-xl px-4 py-3 text-[#0f255c] text-sm outline-none border transition-all placeholder:text-[#4b649a]
+        `w-full bg-white rounded-lg px-4 py-3 text-gray-900 text-sm outline-none border transition-all placeholder:text-gray-400
         ${focused
-            ? "border-[#2f68ea] shadow-[0_0_0_3px_rgba(47,104,234,0.22)]"
-            : "border-[#c8d9ff]"
+            ? "border-blue-500 shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
+            : "border-gray-200"
         }`;
 
     return (
-        <div className="min-h-screen bg-[#4472e5] flex items-center justify-center p-6 font-sans relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-500 to-cyan-100 flex items-center justify-center p-6 font-sans">
 
-            {/* Ambient glows - subtle white glow */}
-            <div className="absolute -top-[10%] -left-[5%] w-125 h-125 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.16)_0%,transparent_70%)] pointer-events-none" />
-            <div className="absolute -bottom-[10%] -right-[5%] w-100 h-100 rounded-full bg-[radial-gradient(circle,rgba(18,35,96,0.14)_0%,transparent_70%)] pointer-events-none" />
-
-            <div className="relative w-full max-w-105">
+            <div className="w-full max-w-md">
 
                 {/* Card */}
-                <div className="rounded-2xl  bg-[rgba(255,255,255,0.16)] backdrop-blur-sm px-8 py-7 shadow-[0_18px_45px_rgba(17,42,107,0.28)]">
+                <div className="rounded-2xl bg-white px-8 py-10 shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-blue-100">
 
                     {/* Logo */}
-                    <div className="flex items-center gap-2.5 mb-7">
-                        <div className="w-9.5 h-9.5 rounded-[10px] bg-[#2f68ea] flex items-center justify-center shadow-[0_4px_16px_rgba(24,58,156,0.4)]">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z" fill="black" />
-                                <path d="M2 17l10 5 10-5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M2 12l10 5 10-5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <div className="flex items-center gap-3 mb-8">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" fill="white" />
+                                <path d="M2 17l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M2 12l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
-                        <span className="text-[#0f255c] font-bold text-lg tracking-tight">Interview Bit</span>
+                        <span className="text-gray-900 font-bold text-xl">Interview Bit</span>
                     </div>
 
                     {/* Heading */}
-                    <h1 className="text-[#0f255c] text-[26px] font-bold mb-4 tracking-tight">Welcome back</h1>
+                    <h1 className="text-gray-900 text-2xl font-bold mb-2">Welcome back</h1>
+                    <p className="text-gray-500 text-sm mb-6">Sign in to your account to continue</p>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-3.5">
+                    <form onSubmit={handleSubmit} className="space-y-4">
 
                         {/* Email */}
                         <div>
-                            <label className="mb-1.5 block text-[11px] font-bold tracking-widest uppercase text-[#0c1b36]">
-                                Email
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">
+                                Email Address
                             </label>
                             <input
                                 type="email"
@@ -91,12 +88,13 @@ export default function Login() {
                                 onBlur={() => setEmailFocused(false)}
                                 placeholder="you@example.com"
                                 className={inputClass(emailFocused)}
+                                required
                             />
                         </div>
 
                         {/* Password */}
                         <div>
-                            <label className="mb-1.5 block text-[11px] font-bold tracking-widest uppercase text-[#0c1b36]">
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">
                                 Password
                             </label>
                             <div className="relative">
@@ -108,22 +106,34 @@ export default function Login() {
                                     onBlur={() => setPassFocused(false)}
                                     placeholder="••••••••"
                                     className={`${inputClass(passFocused)} pr-11`}
+                                    required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none text-[#0c1b36] cursor-pointer flex items-center p-0.5 hover:text-[#1d469f] transition-colors"
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none text-gray-500 cursor-pointer flex items-center p-0.5 hover:text-gray-700 transition-colors"
                                 >
                                     <EyeIcon open={showPassword} />
                                 </button>
                             </div>
                         </div>
 
+                        {/* Remember & Forgot */}
+                        <div className="flex items-center justify-between text-sm">
+                            <label className="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-blue-600" />
+                                <span className="text-gray-600">Remember me</span>
+                            </label>
+                            <Link to="/forgot-password" className="text-blue-600 hover:text-blue-700 font-medium">
+                                Forgot password?
+                            </Link>
+                        </div>
+
                         {/* Submit */}
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-3.5 px-5 rounded-xl bg-[#0b2c75] text-white text-sm font-semibold cursor-pointer shadow-lg flex items-center justify-center gap-2 transition-all hover:bg-[#163c8d] ${loading ? "opacity-80" : "opacity-100"}`}
+                            className={`w-full py-3 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:from-blue-700 hover:to-indigo-700 ${loading ? "opacity-75" : "opacity-100"}`}
                         >
                             {loading ? (
                                 <>
@@ -144,13 +154,24 @@ export default function Login() {
                         </button>
                     </form>
 
-                    <p className="mt-4 mb-0 text-center text-[13px] font-bold text-[#0c1b36]">
-                        New here?{" "}
+                    {/* Divider */}
+                    <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-200" />
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="px-3 bg-white text-gray-500">Or</span>
+                        </div>
+                    </div>
+
+                    {/* Sign up link */}
+                    <p className="text-center text-sm text-gray-600">
+                        Don't have an account?{" "}
                         <Link
                             to="/register"
-                            className="font-semibold text-[#000000] underline underline-offset-3 hover:text-[#f0f1f3]"
+                            className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
                         >
-                            Create new one
+                            Create one now
                         </Link>
                     </p>
                 </div>

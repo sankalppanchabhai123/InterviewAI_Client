@@ -2,8 +2,8 @@ import axios from "axios";
 
 
 const api = axios.create({
-    baseURL: "https://interview-test-eosin-three.vercel.app/api/auth",
-    // baseURL: "http://localhost:3000/api/auth",
+    // baseURL: "https://interview-test-eosin-three.vercel.app/api/auth",
+    baseURL: "http://localhost:3000/api/auth",
     withCredentials: true,
 });
 
@@ -42,7 +42,7 @@ export async function logout() {
 }
 export async function getUser() {
     try {
-        const res = await api.get("/log-date",
+        const res = await api.get("/me",
             { withCredentials: true }
         );
         return res.data;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 // ── Icons ──────────────────────────────────────────────────────────────────────
 const Eye = ({ open }) => (
@@ -15,23 +15,23 @@ const Eye = ({ open }) => (
 // ── Success screen ─────────────────────────────────────────────────────────────
 function SuccessScreen({ onBack }) {
     return (
-        <div className="min-h-screen bg-[#4472e5] flex items-center justify-center font-sans">
+        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 flex items-center justify-center p-6 font-sans">
             <div className="text-center max-w-xs px-6">
-                <div className="w-18 h-18 rounded-full bg-[#2f68ea] flex items-center justify-center mx-auto mb-6 shadow-[0_0_40px_rgba(24,58,156,0.4)]">
+                <div className="w-18 h-18 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M20 6L9 17l-5-5" />
                     </svg>
                 </div>
-                <h2 className="text-white text-2xl font-bold mb-2">Account created!</h2>
-                <p className="text-[#edf4ffcf] text-sm leading-relaxed mb-7">
+                <h2 className="text-gray-900 text-2xl font-bold mb-2">Account created!</h2>
+                <p className="text-gray-600 text-sm leading-relaxed mb-7">
                     Welcome aboard! Check your inbox to verify your email before signing in.
                 </p>
-                <button
-                    onClick={"/login"}
-                    className="px-7 py-3 rounded-xl border border-[#d8e6ff] bg-[#f8fbff] text-[#0f255c] text-sm font-semibold cursor-pointer"
+                <Link
+                    to="/login"
+                    className="inline-block px-7 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all"
                 >
                     Go to Login
-                </button>
+                </Link>
             </div>
         </div>
     );
@@ -39,7 +39,6 @@ function SuccessScreen({ onBack }) {
 
 // ── Main Register component ────────────────────────────────────────────────────
 export default function Register() {
-    // Simple, flat state — one field per key
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -53,12 +52,12 @@ export default function Register() {
     const { handleRegister, loading } = useAuth();
 
     // ── Field border helper ──────────────────────────────────────────────────
-    const fieldBorder = (key, override) => {
-        if (override) return override;
-        return focused === key
-            ? "border-[#2f68ea] shadow-[0_0_0_3px_rgba(47,104,234,0.22)]"
-            : "border-[#c8d9ff]";
-    };
+    const inputClass = (isFocused) =>
+        `w-full bg-white rounded-lg px-4 py-3 text-gray-900 text-sm outline-none border transition-all placeholder:text-gray-400
+        ${isFocused
+            ? "border-blue-500 shadow-[0_0_0_3px_rgba(59,130,246,0.1)]"
+            : "border-gray-200"
+        }`;
 
     // ── Submit ───────────────────────────────────────────────────────────────
     const handleSubmit = async (e) => {
@@ -88,91 +87,99 @@ export default function Register() {
     if (done) return <SuccessScreen onBack={() => setDone(false)} />;
 
     return (
-        <div className="min-h-screen bg-[#4472e5] flex items-center justify-center p-6 font-sans relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-500 to-cyan-100 flex items-center justify-center p-6 font-sans">
 
-            {/* Ambient blobs */}
-            <div className="absolute -top-[15%] -right-[5%] w-125 h-125 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.15)_0%,transparent_70%)] pointer-events-none" />
-            <div className="absolute -bottom-[10%] -left-[5%] w-105 h-105 rounded-full bg-[radial-gradient(circle,rgba(18,35,96,0.12)_0%,transparent_70%)] pointer-events-none" />
-
-            <div className="relative w-full max-w-110">
+            <div className="w-full max-w-md">
 
                 {/* Card */}
-                <div className="rounded-2xl   bg-[rgba(255,255,255,0.16)] px-8 py-7 shadow-[0_18px_45px_rgba(17,42,107,0.28)] backdrop-blur-sm">
+                <div className="rounded-2xl bg-white px-8 py-10 shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-blue-100">
 
                     {/* Logo */}
-                    <div className="flex items-center gap-2.5 mb-6">
-                        <div className="w-9.5 h-9.5 rounded-[10px] bg-[#2f68ea] flex items-center justify-center shadow-[0_4px_16px_rgba(24,58,156,0.4)]">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z" fill="black" />
-                                <path d="M2 17l10 5 10-5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M2 12l10 5 10-5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <div className="flex items-center gap-2 mb-8">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" fill="white" />
+                                <path d="M2 17l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M2 12l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
-                        <span className="text-[#0f255c] font-bold text-lg tracking-tight">Nucleus</span>
+                        <span className="text-gray-900 font-bold text-xl">Interview Bit</span>
                     </div>
 
-                    <h1 className="text-[#0f255c] text-[25px] font-bold mb-4 tracking-tight">Create your account</h1>
+                    {/* Heading */}
+                    <h1 className="text-gray-900 text-2xl font-bold mb-2">Create your account</h1>
+                    <p className="text-gray-500 text-sm mb-6">Join us and start your journey</p>
 
-                    <form onSubmit={handleSubmit} className="space-y-3">
+                    <form onSubmit={handleSubmit} className="space-y-4">
 
                         {/* Username */}
                         <div>
-                            <label className="mb-1.5 block text-[11px] font-semibold tracking-widest uppercase text-[#0c1b36]">Username</label>
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">Username</label>
                             <input
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                placeholder="Jane Smith"
-                                className={`w-full bg-[#edf4ff] rounded-xl px-4 py-2.75 text-[#0f255c] text-sm outline-none border transition-all placeholder:text-[#4b649a] autofill:shadow-[0_0_0_100px_#edf4ff_inset] autofill:text-[#0f255c] ${fieldBorder("username")}`}
                                 onFocus={() => setFocused("username")}
                                 onBlur={() => setFocused("")}
+                                placeholder="Jane Smith"
+                                className={inputClass(focused === "username")}
                             />
                         </div>
 
                         {/* Email */}
                         <div>
-                            <label className="mb-1.5 block text-[11px] font-semibold tracking-widest uppercase text-[#0c1b36]">Email address</label>
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">Email address</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="you@example.com"
-                                className={`w-full bg-[#edf4ff] rounded-xl px-4 py-2.75 text-[#0f255c] text-sm outline-none border transition-all placeholder:text-[#4b649a] ${fieldBorder("email")}`}
                                 onFocus={() => setFocused("email")}
                                 onBlur={() => setFocused("")}
+                                placeholder="you@example.com"
+                                className={inputClass(focused === "email")}
                             />
                         </div>
 
                         {/* Password */}
                         <div>
-                            <label className="mb-1.5 block text-[11px] font-semibold tracking-widest uppercase text-[#0c1b36]">Password</label>
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">Password</label>
                             <div className="relative">
                                 <input
                                     type={showPw ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Min. 8 characters"
-                                    className={`w-full bg-[#edf4ff] rounded-xl px-4 py-2.75 pr-11 text-[#0f255c] text-sm outline-none border transition-all placeholder:text-[#4b649a] ${fieldBorder("password")}`}
                                     onFocus={() => setFocused("password")}
                                     onBlur={() => setFocused("")}
+                                    placeholder="Min. 8 characters"
+                                    className={`${inputClass(focused === "password")} pr-11`}
                                 />
-                                <button type="button" onClick={() => setShowPw(!showPw)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none text-[#4f69a1] cursor-pointer flex hover:text-[#1d469f]">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPw(!showPw)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none text-gray-500 cursor-pointer flex items-center p-0.5 hover:text-gray-700 transition-colors"
+                                >
                                     <Eye open={showPw} />
                                 </button>
                             </div>
                         </div>
 
+                        {/* Error Message */}
+                        {formError ? (
+                            <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                                {formError}
+                            </p>
+                        ) : null}
+
                         {/* Submit */}
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-3.5 px-5 rounded-xl border border-[#1d469f]/20 text-sm font-semibold flex items-center justify-center gap-2 transition-all mt-3 bg-[#1d469f] text-white cursor-pointer shadow-[0_4px_20px_rgba(7,12,26,0.25)] hover:bg-[#163c8d] disabled:opacity-80 disabled:cursor-not-allowed"
+                            className={`w-full py-3 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:from-blue-700 hover:to-indigo-700 ${loading ? "opacity-75" : "opacity-100"}`}
                         >
                             {loading ? (
                                 <>
                                     <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                        <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="4" />
+                                        <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)" strokeWidth="4" />
                                         <path fill="white" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                                     </svg>
                                     Creating account...
@@ -180,21 +187,33 @@ export default function Register() {
                             ) : (
                                 <>
                                     Create account
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
                                 </>
                             )}
                         </button>
-
-                        {formError ? (
-                            <p className="text-[12px] text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-                                {formError}
-                            </p>
-                        ) : null}
                     </form>
 
-                    <p className="mt-5 text-center text-[13px] text-[#0c1b36]">
+                    {/* Divider */}
+                    <div className="relative my-3">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-200" />
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="px-3 bg-white text-gray-500">Or</span>
+                        </div>
+                    </div>
+
+                    {/* Sign in link */}
+                    <p className="text-center text-sm text-gray-600">
                         Already have an account?{" "}
-                        <a href="/login" className="text-[#000000] no-underline font-medium hover:text-[#163c8d]">Sign in</a>
+                        <Link
+                            to="/login"
+                            className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                        >
+                            Sign in
+                        </Link>
                     </p>
                 </div>
             </div>
