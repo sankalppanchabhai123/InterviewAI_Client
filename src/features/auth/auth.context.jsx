@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 
 export const Authprovider = ({ children }) => {
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const checkauth = async () => {
