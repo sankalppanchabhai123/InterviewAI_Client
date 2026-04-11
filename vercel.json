@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://interview-ai-api-backend.onrender.com/api/:path*"
+      "destination": "https://interview-test-ttcc.vercel.app/api/:path*"
     },
     {
       "source": "/(.*)",

@@ -75,10 +75,12 @@ export default function Home() {
                 <div className="absolute -bottom-[16%] -right-[7%] w-100 h-100 rounded-full bg-[radial-gradient(circle,rgba(18,35,96,0.08)_0%,transparent_70%)] pointer-events-none animate-float-soft" />
                 {/* Navigation Pill */}
                 <header className="fixed top-5 left-1/2 z-50 w-[min(1100px,calc(100%-1.5rem))] -translate-x-1/2 min-h-12.5 rounded-full bg-[rgba(164,189,255,0.42)] backdrop-blur-[6px] shadow-[0_10px_30px_rgba(6,25,78,0.18),inset_0_1px_0_rgba(255,255,255,0.32)] border border-[rgba(221,233,255,0.32)] flex items-center justify-between p-[5px_clamp(16px,2.2vw,26px)] gap-1 animate-fade-up">
-                    <div className="flex items-center gap-1.5 font-bold text-[clamp(17px,2vw,24px)] tracking-[0.2px] text-[#f7fbff] animate-fade-up-delay-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#f2f6ff] shadow-[0_0_0_4px_rgba(255,255,255,0.06)] animate-glow-pulse" />
-                        <span>InterviewAI</span>
-                    </div>
+                    <Link to="/" className="no-underline">
+                        <div className="flex items-center gap-1.5 font-bold text-[clamp(17px,2vw,24px)] tracking-[0.2px] text-[#f7fbff] animate-fade-up-delay-1 cursor-pointer hover:opacity-80 transition-opacity">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#f2f6ff] shadow-[0_0_0_4px_rgba(255,255,255,0.06)] animate-glow-pulse" />
+                            <span>InterviewAI</span>
+                        </div>
+                    </Link>
 
                     <nav className="flex items-center gap-1.5 text-[clamp(13px,1.25vw,17px)] font-semibold animate-fade-up-delay-2">
                         {user ? (

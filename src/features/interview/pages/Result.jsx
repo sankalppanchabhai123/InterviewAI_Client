@@ -267,7 +267,7 @@ const ReportBody = ({ data }) => {
                 </main>
 
                 <aside className="bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,rgba(212,228,255,0.16)_100%)] border border-[rgba(205,224,255,0.32)] rounded-[20px] p-5 shadow-[0_12px_28px_rgba(4,10,35,0.15)]">
-                    <div className="text-xs font-semibold tracking-[0.22em] uppercase text-[#1d469f] mb-4 flex items-center gap-2">
+                    <div className="text-xs font-bold tracking-[0.22em] uppercase text-[#000000] mb-4 flex items-center gap-2">
                         <BoltIcon />
                         Skill Gaps
                     </div>
@@ -303,7 +303,7 @@ const ReportBody = ({ data }) => {
 
             {/* Footer Note */}
             <div className="mt-12 pt-8 text-center border-t border-black/15">
-                <p className="text-sm text-[#7f8792]">
+                <p className="text-sm text-[#000000]">
                     This assessment is designed to guide your preparation and highlight areas for continued growth
                 </p>
             </div>
