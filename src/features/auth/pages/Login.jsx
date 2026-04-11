@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom"
+import { GoogleLogin } from "@react-oauth/google";
 
 // ── Icons ──────────────────────────────────────────────────────────────────────
 const EyeIcon = ({ open }) => (
@@ -20,24 +21,45 @@ const EyeIcon = ({ open }) => (
     </svg>
 );
 
-// ── Component ──────────────────────────────────────────────────────────────
+// ── Component ──────────────────────────────────────────────────────────
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [emailFocused, setEmailFocused] = useState(false);
     const [passFocused, setPassFocused] = useState(false);
+    const [authError, setAuthError] = useState("");
 
     const navigate = useNavigate()
-    const { handleLogin, loading } = useAuth();
+    const { handleLogin, handleGoogleLogin, loading } = useAuth();
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+    const redirectHomeAtTop = () => {
+        navigate("/", { replace: true });
+        requestAnimationFrame(() => {
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setAuthError("");
         try {
             await handleLogin({ email, password });
-            navigate("/");
+            redirectHomeAtTop();
         } catch (err) {
             console.error("Login error:", err);
+            setAuthError(err?.response?.data?.message || "Unable to login. Please try again.");
+        }
+    };
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        setAuthError("");
+        try {
+            await handleGoogleLogin({ credential: credentialResponse?.credential });
+            redirectHomeAtTop();
+        } catch (err) {
+            setAuthError(err?.response?.data?.message || "Google login failed. Please try again.");
         }
     };
 
@@ -49,16 +71,16 @@ export default function Login() {
         }`;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-500 to-cyan-100 flex items-center justify-center p-6 font-sans">
+        <div className="min-h-screen bg-white flex items-center justify-center p-6 font-sans">
 
             <div className="w-full max-w-md">
 
                 {/* Card */}
-                <div className="rounded-2xl bg-white px-8 py-10 shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-blue-100">
+                <div className="rounded-2xl bg-slate-50 px-8 py-10 shadow-[0_20px_60px_rgba(15,23,42,0.12)] border border-slate-200">
 
                     {/* Logo */}
-                    <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                    {/* <div className="flex items-center gap-3 mb-8">
+                        <div className="w-10 h-10 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 2L2 7l10 5 10-5-10-5z" fill="white" />
                                 <path d="M2 17l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -66,7 +88,7 @@ export default function Login() {
                             </svg>
                         </div>
                         <span className="text-gray-900 font-bold text-xl">Interview Bit</span>
-                    </div>
+                    </div> */}
 
                     {/* Heading */}
                     <h1 className="text-gray-900 text-2xl font-bold mb-2">Welcome back</h1>
@@ -77,7 +99,7 @@ export default function Login() {
 
                         {/* Email */}
                         <div>
-                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-slate-700">
                                 Email Address
                             </label>
                             <input
@@ -94,7 +116,7 @@ export default function Login() {
 
                         {/* Password */}
                         <div>
-                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-slate-700">
                                 Password
                             </label>
                             <div className="relative">
@@ -122,7 +144,7 @@ export default function Login() {
                         <div className="flex items-center justify-between text-sm">
                             <label className="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-blue-600" />
-                                <span className="text-gray-600">Remember me</span>
+                                <span className="text-slate-600">Remember me</span>
                             </label>
                             <Link to="/forgot-password" className="text-blue-600 hover:text-blue-700 font-medium">
                                 Forgot password?
@@ -133,7 +155,7 @@ export default function Login() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-3 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:from-blue-700 hover:to-indigo-700 ${loading ? "opacity-75" : "opacity-100"}`}
+                            className={`w-full py-3 px-4 rounded-lg bg-linear-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:from-blue-700 hover:to-indigo-700 ${loading ? "opacity-75" : "opacity-100"}`}
                         >
                             {loading ? (
                                 <>
@@ -152,6 +174,12 @@ export default function Login() {
                                 </>
                             )}
                         </button>
+
+                        {authError ? (
+                            <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                                {authError}
+                            </p>
+                        ) : null}
                     </form>
 
                     {/* Divider */}
@@ -160,12 +188,27 @@ export default function Login() {
                             <div className="w-full border-t border-gray-200" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-3 bg-white text-gray-500">Or</span>
+                            <span className="px-3 bg-slate-50 text-gray-500">Or continue with</span>
                         </div>
                     </div>
 
+                    {/* Google Login Button */}
+                    {googleClientId ? (
+                        <div className="flex justify-center mb-6">
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={() => setAuthError("Google login was cancelled or failed.")}
+                                useOneTap={false}
+                                text="signin_with"
+                                shape="circle"
+                                theme="outline"
+                                width="50"
+                            />
+                        </div>
+                    ) : null}
+
                     {/* Sign up link */}
-                    <p className="text-center text-sm text-gray-600">
+                    <p className="text-center text-sm text-slate-600">
                         Don't have an account?{" "}
                         <Link
                             to="/register"

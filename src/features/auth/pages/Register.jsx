@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 // ── Icons ──────────────────────────────────────────────────────────────────────
 const Eye = ({ open }) => (
@@ -12,31 +13,6 @@ const Eye = ({ open }) => (
     </svg>
 );
 
-// ── Success screen ─────────────────────────────────────────────────────────────
-function SuccessScreen({ onBack }) {
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-cyan-100 flex items-center justify-center p-6 font-sans">
-            <div className="text-center max-w-xs px-6">
-                <div className="w-18 h-18 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 6L9 17l-5-5" />
-                    </svg>
-                </div>
-                <h2 className="text-gray-900 text-2xl font-bold mb-2">Account created!</h2>
-                <p className="text-gray-600 text-sm leading-relaxed mb-7">
-                    Welcome aboard! Check your inbox to verify your email before signing in.
-                </p>
-                <Link
-                    to="/login"
-                    className="inline-block px-7 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all"
-                >
-                    Go to Login
-                </Link>
-            </div>
-        </div>
-    );
-}
-
 // ── Main Register component ────────────────────────────────────────────────────
 export default function Register() {
     const [username, setUsername] = useState("");
@@ -46,10 +22,10 @@ export default function Register() {
 
     const [showPw, setShowPw] = useState(false);
     const [focused, setFocused] = useState("");
-    const [done, setDone] = useState(false);
     const navigate = useNavigate();
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-    const { handleRegister, loading } = useAuth();
+    const { handleRegister, handleGoogleLogin, loading } = useAuth();
 
     // ── Field border helper ──────────────────────────────────────────────────
     const inputClass = (isFocused) =>
@@ -75,8 +51,7 @@ export default function Register() {
                 email: email.trim().toLowerCase(),
                 password,
             });
-            setDone(true);
-            navigate("/login")
+            navigate("/")
         } catch (err) {
             console.error("Register error:", err);
             const apiError = err?.response?.data?.message || err?.response?.data?.massage;
@@ -84,18 +59,26 @@ export default function Register() {
         }
     };
 
-    if (done) return <SuccessScreen onBack={() => setDone(false)} />;
+    const handleGoogleSuccess = async (credentialResponse) => {
+        setFormError("");
+        try {
+            await handleGoogleLogin({ credential: credentialResponse?.credential });
+            navigate("/");
+        } catch (err) {
+            setFormError(err?.response?.data?.message || "Google signup failed. Please try again.");
+        }
+    };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-500 via-blue-500 to-cyan-100 flex items-center justify-center p-6 font-sans">
+        <div className="min-h-screen bg-white flex items-center justify-center p-6 font-sans">
 
             <div className="w-full max-w-md">
 
                 {/* Card */}
-                <div className="rounded-2xl bg-white px-8 py-10 shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-blue-100">
+                <div className="rounded-2xl bg-slate-50 px-8 py-10 shadow-[0_20px_60px_rgba(15,23,42,0.12)] border border-slate-200">
 
                     {/* Logo */}
-                    <div className="flex items-center gap-2 mb-8">
+                    {/* <div className="flex items-center gap-2 mb-8">
                         <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 2L2 7l10 5 10-5-10-5z" fill="white" />
@@ -104,17 +87,18 @@ export default function Register() {
                             </svg>
                         </div>
                         <span className="text-gray-900 font-bold text-xl">Interview Bit</span>
-                    </div>
+                    </div> */}
 
                     {/* Heading */}
                     <h1 className="text-gray-900 text-2xl font-bold mb-2">Create your account</h1>
                     <p className="text-gray-500 text-sm mb-6">Join us and start your journey</p>
 
+                    {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-4">
 
                         {/* Username */}
                         <div>
-                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">Username</label>
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-slate-700">Username</label>
                             <input
                                 type="text"
                                 value={username}
@@ -128,7 +112,7 @@ export default function Register() {
 
                         {/* Email */}
                         <div>
-                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">Email address</label>
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-slate-700">Email address</label>
                             <input
                                 type="email"
                                 value={email}
@@ -142,7 +126,7 @@ export default function Register() {
 
                         {/* Password */}
                         <div>
-                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-gray-700">Password</label>
+                            <label className="mb-2 block text-xs font-semibold tracking-wide uppercase text-slate-700">Password</label>
                             <div className="relative">
                                 <input
                                     type={showPw ? "text" : "password"}
@@ -196,17 +180,32 @@ export default function Register() {
                     </form>
 
                     {/* Divider */}
-                    <div className="relative my-3">
+                    <div className="relative my-6">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-gray-200" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-3 bg-white text-gray-500">Or</span>
+                            <span className="px-3 bg-slate-50 text-gray-500">Or continue with</span>
                         </div>
                     </div>
 
+                    {/* Google Signup Button */}
+                    {googleClientId ? (
+                        <div className="flex justify-center mb-6">
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={() => setFormError("Google signup was cancelled or failed.")}
+                                useOneTap={false}
+                                text="signup_with"
+                                shape="circle"
+                                theme="outline"
+                                width="50"
+                            />
+                        </div>
+                    ) : null}
+
                     {/* Sign in link */}
-                    <p className="text-center text-sm text-gray-600">
+                    <p className="text-center text-sm text-slate-600">
                         Already have an account?{" "}
                         <Link
                             to="/login"
