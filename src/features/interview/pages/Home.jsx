@@ -166,7 +166,7 @@ export default function Home() {
                         {insightCards.map((card, index) => (
                             <article
                                 key={card.title}
-                                className={`rounded-[26px] border border-[#1a1a1a] bg-[#f7f9ff] text-[#09111f] shadow-[0_16px_35px_rgba(17,42,107,0.2)] p-6 hover-zoom`}
+                                className={`rounded-[26px] border border-[#1a1a1a] bg-[#f7f9ff] text-[#09111f] shadow-[0_16px_35px_rgba(17,42,107,0.2)] p-6 hover-lift ${workflowAnimationClasses[index % workflowAnimationClasses.length]}`}
                             >
                                 <div className="w-11 h-11 rounded-full bg-[#dce6fb] flex items-center justify-center mb-4 shadow-[inset_0_0_0_1px_rgba(26,42,73,0.14)]">
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#2f68ea] animate-glow-pulse" />
