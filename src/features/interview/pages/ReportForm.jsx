@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { generateInterviewReport, getMyInterviewReports } from "../services/interview.api";
 import InterviewReport from "./Result";
@@ -524,7 +524,7 @@ const ReportForm = () => {
 
                                         <div className="relative z-10 flex items-start justify-between gap-3">
                                             <div>
-                                                <p className="m-0 text-[12px] font-bold tracking-[0.16em] uppercase text-[#f4f8ff]">
+                                                <p className="m-0 text-[12px] font-bold tracking-[0.16em] uppercase text-[#02183d]">
                                                     {formatReportDate(report?.createdAt)}
                                                 </p>
                                                 <h3 className="mt-2 mb-0 text-[18px] font-bold text-[#f6f9ff] leading-snug group-hover:text-white">
@@ -551,9 +551,9 @@ const ReportForm = () => {
                                             </div>
                                         </div>
 
-                                        <div className="relative z-10 mt-auto flex items-center justify-between gap-3 pt-3 text-sm text-[#f2f7ff]">
+                                        <div className="relative z-10 mt-auto flex items-center justify-between gap-3 pt-3 text-sm text-[#03122b]">
                                             <span>{isActive ? "Currently open" : "Click to open report"}</span>
-                                            <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(205,224,255,0.36)] bg-[rgba(255,255,255,0.14)] px-2.5 py-1 text-[11px] font-bold tracking-[0.12em] uppercase transition-transform duration-300 group-hover:translate-x-1">
+                                            <span className="inline-flex items-center gap-1.5 rounded-full border text-[#fdfeff] border-[rgba(205,224,255,0.36)] bg-[rgba(255,255,255,0.14)] px-2.5 py-1 text-[11px] font-bold tracking-[0.12em] uppercase transition-transform duration-300 group-hover:translate-x-1">
                                                 View
                                             </span>
                                         </div>
@@ -590,7 +590,7 @@ const ReportForm = () => {
                                 <div className="w-7 h-7 rounded-full bg-[#dce6fb] shadow-[inset_0_0_0_1px_rgba(26,42,73,0.14)] flex items-center justify-center">
                                     <span className="w-2 h-2 rounded-full bg-[#2f68ea]" />
                                 </div>
-                                <h3 className="mt-3 mb-2 text-[17px] font-bold text-[#0e192e] leading-snug">{item.title}</h3>
+                                <h3 className="mt-3 mb-2 text-[17px] font-bold text-[#0a2350] leading-snug">{item.title}</h3>
                                 <p className="m-0 text-[14px] leading-6 text-[#dbe7ff]">{item.description}</p>
                             </article>
                         ))}
@@ -619,7 +619,7 @@ const ReportForm = () => {
                             </svg>
                         </a>
                         <span className="ml-3 flex items-center gap-1 font-bold text-[#0f172a]">
-                            Build with <span className="text-red-500">♥</span> by Sankalp
+                            Build with <span className="text-red-500 font-bold">♥</span> by Sankalp
                         </span>
                     </div>
                 </footer>

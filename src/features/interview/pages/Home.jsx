@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
 
@@ -56,9 +57,21 @@ const workflowAnimationClasses = [
     "animate-fade-up-delay-3",
 ];
 
+const sampleReportData = {
+    matchScore: 86,
+    topRole: "Frontend Developer",
+    technicalQuestions: 12,
+    behavioralQuestions: 8,
+    sampleTechnicalQuestion: "How would you optimize rendering performance in a large React dashboard with frequent state updates?",
+    sampleBehavioralQuestion: "Tell me about a time you received critical feedback and how you used it to improve project delivery.",
+    coreSkills: ["React", "JavaScript", "State Management", "API Integration"],
+    skillGaps: ["System Design", "Performance Optimization", "Testing Strategy"],
+};
+
 export default function Home() {
     const navigate = useNavigate();
     const { user, handleLogout } = useAuth();
+    const [showSampleReport, setShowSampleReport] = useState(false);
 
     const onLogout = async () => {
         try {
@@ -66,6 +79,14 @@ export default function Home() {
         } finally {
             navigate("/", { replace: true });
         }
+    };
+
+    const openSampleReport = () => {
+        setShowSampleReport(true);
+    };
+
+    const closeSampleReport = () => {
+        setShowSampleReport(false);
     };
 
     return (
@@ -115,7 +136,7 @@ export default function Home() {
                         <span className="block mt-[-0.08em] text-[clamp(48px,5.4vw,72px)] text-[#071426] animate-fade-up-delay-1">AI-Powered Preparation</span>
                     </h1>
 
-                    <p className="mt-[clamp(15px,2.2vw,26px)] mb-0 max-w-190 text-[clamp(16px,1.55vw,23px)] leading-tight font-normal text-[#071426] animate-fade-up-delay-2">
+                    <p className="mt-3 mb-0 text-[clamp(14px,1.5vw,19px)] leading-relaxed font-sans font-semibold text-[#0f172a] max-w-3xl mx-auto">
                         Paste your job description, share your background, and upload your resume
                         <br />
                         to generate a personalized interview report and preparation roadmap.
@@ -133,6 +154,7 @@ export default function Home() {
                         </Link>
                         <button
                             type="button"
+                            onClick={openSampleReport}
                             className="border border-[#141414] rounded-full bg-[#f3f3f1] text-[#0f1216] p-[clamp(9px,1.1vw,13px)_clamp(22px,2.8vw,34px)] text-[clamp(14px,1.18vw,19px)] font-bold cursor-pointer hover-zoom"
                         >
                             View Sample Report
@@ -298,6 +320,82 @@ export default function Home() {
                     </footer>
                 </section>
             </div>
+
+            {showSampleReport ? (
+                <div
+                    className="fixed inset-0 z-90 bg-[rgba(8,18,48,0.58)] backdrop-blur-xs overflow-y-auto px-4 py-6"
+                    onClick={closeSampleReport}
+                >
+                    <div
+                        className="w-[min(620px,100%)] mx-auto rounded-3xl border border-[rgba(255,255,255,0.38)] bg-[linear-gradient(150deg,rgba(227,237,255,0.94)_0%,rgba(176,201,250,0.93)_45%,rgba(138,173,241,0.92)_100%)] p-6 sm:p-8 text-left shadow-[0_26px_72px_rgba(3,10,34,0.52)] relative backdrop-blur-sm"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <button
+                            type="button"
+                            onClick={closeSampleReport}
+                            className="absolute top-3.5 right-3.5 rounded-full border border-[rgba(15,23,42,0.24)] bg-[rgba(255,255,255,0.7)] px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#0b1327] cursor-pointer hover:bg-white transition-colors"
+                        >
+                            Close
+                        </button>
+
+                        <div className="pt-3">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(15,23,42,0.2)] bg-[rgba(255,255,255,0.62)] px-3 py-1 text-[11px] font-bold tracking-widest uppercase text-[#0b1327]">
+                                Mock Data Preview
+                            </div>
+
+                            <h3 className="mt-4 mb-1 text-[clamp(23px,2.6vw,31px)] font-bold text-[#0b1327] leading-tight">
+                                Sample Interview Report
+                            </h3>
+                            <p className="m-0 text-[14px] text-[#14213d] leading-relaxed">
+                                Role: {sampleReportData.topRole}
+                            </p>
+
+                            <div className="mt-5 grid grid-cols-3 gap-3">
+                                <div className="rounded-2xl border border-[rgba(15,23,42,0.14)] bg-[rgba(255,255,255,0.62)] px-3 py-3 text-center backdrop-blur-sm">
+                                    <div className="text-[10px] uppercase tracking-[0.12em] text-[#1f365f] font-bold">Match</div>
+                                    <div className="mt-1 text-[22px] font-black text-[#0b1327]">{sampleReportData.matchScore}%</div>
+                                </div>
+                                <div className="rounded-2xl border border-[rgba(15,23,42,0.14)] bg-[rgba(255,255,255,0.62)] px-3 py-3 text-center backdrop-blur-sm">
+                                    <div className="text-[10px] uppercase tracking-[0.12em] text-[#1f365f] font-bold">Tech Qs</div>
+                                    <div className="mt-1 text-[22px] font-black text-[#0b1327]">{sampleReportData.technicalQuestions}</div>
+                                </div>
+                                <div className="rounded-2xl border border-[rgba(15,23,42,0.14)] bg-[rgba(255,255,255,0.62)] px-3 py-3 text-center backdrop-blur-sm">
+                                    <div className="text-[10px] uppercase tracking-[0.12em] text-[#1f365f] font-bold">Behavioral</div>
+                                    <div className="mt-1 text-[22px] font-black text-[#0b1327]">{sampleReportData.behavioralQuestions}</div>
+                                </div>
+                            </div>
+
+                            <div className="mt-5 rounded-2xl border border-[rgba(15,23,42,0.14)] bg-[rgba(255,255,255,0.58)] p-4 backdrop-blur-sm">
+                                <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-[#1f365f]">Top Skill Gaps</div>
+                                <p className="mt-2 mb-0 text-[14px] leading-relaxed text-[#0b1327] font-medium">
+                                    {sampleReportData.skillGaps.join(" • ")}
+                                </p>
+                            </div>
+
+                            <div className="mt-4 rounded-2xl border border-[rgba(15,23,42,0.14)] bg-[rgba(255,255,255,0.58)] p-4 backdrop-blur-sm">
+                                <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-[#1f365f]">Sample Technical Question</div>
+                                <p className="mt-2 mb-0 text-[14px] leading-relaxed text-[#0b1327] font-medium">
+                                    {sampleReportData.sampleTechnicalQuestion}
+                                </p>
+                            </div>
+
+                            <div className="mt-4 rounded-2xl border border-[rgba(15,23,42,0.14)] bg-[rgba(255,255,255,0.58)] p-4 backdrop-blur-sm">
+                                <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-[#1f365f]">Sample Behavioral Question</div>
+                                <p className="mt-2 mb-0 text-[14px] leading-relaxed text-[#0b1327] font-medium">
+                                    {sampleReportData.sampleBehavioralQuestion}
+                                </p>
+                            </div>
+
+                            <div className="mt-4 rounded-2xl border border-[rgba(15,23,42,0.14)] bg-[rgba(255,255,255,0.58)] p-4 backdrop-blur-sm">
+                                <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-[#1f365f]">Core Skills</div>
+                                <p className="mt-2 mb-0 text-[14px] leading-relaxed text-[#0b1327] font-medium">
+                                    {sampleReportData.coreSkills.join(" • ")}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
         </div>
     );
 }
