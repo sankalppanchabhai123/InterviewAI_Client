@@ -206,7 +206,6 @@ export default function Login() {
                             />
                         </div>
                     ) : null}
-                    
 
                     {/* Sign up link */}
                     <p className="text-center text-sm text-slate-600">

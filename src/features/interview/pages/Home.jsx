@@ -104,16 +104,7 @@ export default function Home() {
                     </Link>
 
                     <nav className="flex items-center gap-1.5 text-[clamp(13px,1.25vw,17px)] font-semibold animate-fade-up-delay-2">
-                        {loading ? (
-                            <div className="flex items-center gap-1.5" aria-hidden="true">
-                                <span className="inline-flex min-w-17 items-center justify-center rounded-full bg-[rgba(255,255,255,0.16)] px-3 py-2 text-transparent shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] animate-pulse">
-                                    Login
-                                </span>
-                                <span className="inline-flex min-w-20.5 items-center justify-center rounded-full bg-[rgba(255,255,255,0.16)] px-4 py-2 text-transparent shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] animate-pulse">
-                                    Register
-                                </span>
-                            </div>
-                        ) : user ? (
+                        {user ? (
                             <button
                                 type="button"
                                 onClick={onLogout}
