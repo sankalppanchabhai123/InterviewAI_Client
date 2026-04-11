@@ -70,7 +70,7 @@ const sampleReportData = {
 
 export default function Home() {
     const navigate = useNavigate();
-    const { user, handleLogout } = useAuth();
+    const { user, handleLogout, loading } = useAuth();
     const [showSampleReport, setShowSampleReport] = useState(false);
 
     const onLogout = async () => {
@@ -104,7 +104,16 @@ export default function Home() {
                     </Link>
 
                     <nav className="flex items-center gap-1.5 text-[clamp(13px,1.25vw,17px)] font-semibold animate-fade-up-delay-2">
-                        {user ? (
+                        {loading ? (
+                            <div className="flex items-center gap-1.5" aria-hidden="true">
+                                <span className="inline-flex min-w-17 items-center justify-center rounded-full bg-[rgba(255,255,255,0.16)] px-3 py-2 text-transparent shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] animate-pulse">
+                                    Login
+                                </span>
+                                <span className="inline-flex min-w-20.5 items-center justify-center rounded-full bg-[rgba(255,255,255,0.16)] px-4 py-2 text-transparent shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] animate-pulse">
+                                    Register
+                                </span>
+                            </div>
+                        ) : user ? (
                             <button
                                 type="button"
                                 onClick={onLogout}
@@ -129,7 +138,7 @@ export default function Home() {
                 </header>
 
                 {/* Hero Section */}
-                <section className="flex flex-col items-center text-center pt-[clamp(12px,1.3vw,18px)] px-2.5">
+                <section className="flex flex-col items-center text-center pt-[clamp(18px,1.8vw,28px)] px-2.5">
                     <h1 className="m-0 max-w-225 tracking-[-1.2px] font-bold text-[#f6f9ff] animate-fade-up leading-none">
                         <span className="block text-[clamp(34px,3.6vw,48px)] animate-fade-up">Crack Interviews With</span>
                         <br />
@@ -178,7 +187,7 @@ export default function Home() {
                         <h2 className="m-0 text-[#f6f9ff] text-[clamp(26px,3vw,40px)] font-bold leading-tight animate-fade-up">
                             Built for Every Interview Stage
                         </h2>
-                        <p className="mt-3 text-[clamp(14px,1.45vw,18px)] leading-tight text-[#0f172a] animate-fade-up-delay-1">
+                        <p className="mt-3 text-[clamp(14px,1.45vw,18px)] leading-relaxed font-sans font-semibold text-[#090e1a] animate-fade-up-delay-1">
                             InterviewAI helps you identify skill gaps, build a role-specific preparation roadmap,
                             and produce ATS-friendly resume improvements for better interview outcomes.
                         </p>
@@ -188,7 +197,7 @@ export default function Home() {
                         {insightCards.map((card, index) => (
                             <article
                                 key={card.title}
-                                className={`rounded-[26px] border border-[#1a1a1a] bg-[#f7f9ff] text-[#09111f] shadow-[0_16px_35px_rgba(17,42,107,0.2)] p-6 hover-lift ${workflowAnimationClasses[index % workflowAnimationClasses.length]}`}
+                                className={`rounded-[26px] border border-[#1a1a1a] bg-[#f7f9ff] text-[#09111f] shadow-[0_16px_35px_rgba(17,42,107,0.2)] p-6 hover-lift `}
                             >
                                 <div className="w-11 h-11 rounded-full bg-[#dce6fb] flex items-center justify-center mb-4 shadow-[inset_0_0_0_1px_rgba(26,42,73,0.14)]">
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#2f68ea] animate-glow-pulse" />
@@ -207,7 +216,7 @@ export default function Home() {
                         <h2 className="m-0 text-[#f6f9ff] text-[clamp(24px,2.8vw,36px)] font-bold leading-tight animate-fade-up">
                             Simple Steps, Clear Output
                         </h2>
-                        <p className="mt-3 text-[clamp(14px,1.35vw,17px)] leading-relaxed text-[#0f172a] animate-fade-up-delay-1">
+                        <p className="mt-3 text-[clamp(14px,1.35vw,17px)] leading-relaxed font-sans font-semibold text-[#0f172a] animate-fade-up-delay-1">
                             Follow a short workflow to analyze role fit, detect skill gaps, and generate a practical interview preparation plan.
                         </p>
                     </div>
@@ -238,7 +247,7 @@ export default function Home() {
                                 <br />
                                 In One Place
                             </h2>
-                            <p className="mt-4 mx-auto max-w-3xl text-[clamp(14px,1.4vw,18px)] leading-relaxed text-[#0f172a] animate-fade-up-delay-1">
+                            <p className="mt-4 mx-auto max-w-3xl text-[clamp(14px,1.4vw,18px)] leading-relaxed font-sans font-semibold text-[#0f172a] animate-fade-up-delay-1">
                                 Keep job requirements, skill gap reports, ATS resume suggestions, and interview preparation roadmaps in one focused workspace.
                             </p>
 
@@ -251,20 +260,20 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <div className="mt-11 border-t border-[rgba(255,255,255,0.22)] pt-9 sm:pt-11 grid gap-9 lg:grid-cols-[1.35fr_repeat(3,minmax(0,1fr))] text-left">
-                            <div className="animate-fade-up-delay-1">
-                                <div className="flex items-center gap-2.5 font-bold text-[clamp(20px,2.1vw,26px)] text-white">
+                        <div className="mt-11 border-t border-[rgba(255,255,255,0.22)] pt-9 sm:pt-11 grid items-start gap-9 lg:grid-cols-[1.35fr_repeat(3,minmax(0,1fr))] text-left">
+                            <div className="animate-fade-up-delay-1 self-start">
+                                <div className="flex items-center gap-2.5 font-bold text-[clamp(20px,2.1vw,26px)] leading-none text-white">
                                     <span className="w-2 h-2 rounded-full bg-white" />
                                     <span>InterviewAI</span>
                                 </div>
-                                <p className="mt-4 max-w-sm text-[clamp(13px,1.1vw,13px)]  leading-7 text-[#0f172a]">
+                                <p className="mt-4 max-w-sm text-[clamp(13px,1.1vw,13px)]  leading-7 font-sans font-semibold text-[#0f172a]">
                                     All your skill-gap insights, ATS resume improvements and role-based preparation plans in one place.
                                 </p>
                             </div>
 
                             <div className="animate-fade-up-delay-2">
                                 <div className="text-white text-[clamp(15px,1.15vw,17px)] font-bold mb-4">Product</div>
-                                <div className="grid gap-3 text-[clamp(14px,1.05vw,15px)] font-normal text-[#171d2c]">
+                                <div className="grid gap-3 text-[clamp(14px,1.05vw,15px)] font-sans font-normal text-[#171d2c]">
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">Skill Gap Analysis</span>
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">ATS Resume Match</span>
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">Preparation Roadmap</span>
@@ -273,7 +282,7 @@ export default function Home() {
 
                             <div className="animate-fade-up-delay-3">
                                 <div className="text-white text-[clamp(15px,1.15vw,17px)] font-bold mb-4">Company</div>
-                                <div className="grid gap-3 text-[clamp(14px,1.05vw,15px)] font-normal text-[#171d2c]">
+                                <div className="grid gap-3 text-[clamp(14px,1.05vw,15px)] font-sans font-normal text-[#171d2c]">
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">Role Intelligence</span>
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">Candidate Insights</span>
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">Interview Outcomes</span>
@@ -282,7 +291,7 @@ export default function Home() {
 
                             <div className="animate-fade-up-delay-4">
                                 <div className="text-white text-[clamp(15px,1.15vw,17px)] font-bold mb-4">Resources</div>
-                                <div className="grid gap-3 text-[clamp(14px,1.05vw,15px)] font-normal text-[#171d2c]">
+                                <div className="grid gap-3 text-[clamp(14px,1.05vw,15px)] font-sans font-normal text-[#171d2c]">
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">Roadmap Templates</span>
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">Resume Optimization Tips</span>
                                     <span className="inline-block w-fit cursor-pointer transition-colors duration-200 hover:text-white">Mock Interview Practice</span>
@@ -292,7 +301,7 @@ export default function Home() {
 
                     </section>
 
-                    <footer className="mt-7 pb-2 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-[14px] text-[#dbe7ff] animate-fade-up-delay-4">
+                    <footer className="mt-6 pb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-[15px] text-[#dbe7ff] animate-fade-up-delay-4">
                         <p className="m-0 text-white">© 2026 InterviewAI. All rights reserved.</p>
 
                         <div className="flex flex-wrap items-center justify-start md:justify-end gap-3 sm:gap-4 text-[#0f172a]">
