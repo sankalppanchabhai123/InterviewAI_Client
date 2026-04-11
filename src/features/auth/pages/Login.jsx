@@ -193,7 +193,7 @@ export default function Login() {
                     </div>
 
                     {/* Google Login Button */}
-                    {googleClientId ? (
+                    
                         <div className="flex justify-center mb-6">
                             <GoogleLogin
                                 onSuccess={handleGoogleSuccess}
@@ -205,7 +205,7 @@ export default function Login() {
                                 width="50"
                             />
                         </div>
-                    ) : null}
+                    
 
                     {/* Sign up link */}
                     <p className="text-center text-sm text-slate-600">
