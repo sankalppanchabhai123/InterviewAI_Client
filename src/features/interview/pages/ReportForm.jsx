@@ -433,7 +433,7 @@ const ReportForm = () => {
                 </section>
 
                 {reportData ? (
-                    <section ref={reportPreviewRef} className="mt-8 sm:mt-10 scroll-mt-28 sm:scroll-mt-32 rounded-[28px] border border-[rgba(205,224,255,0.4)] bg-[rgba(208,225,255,0.22)] backdrop-blur-sm p-[clamp(16px,3vw,30px)] shadow-[0_18px_40px_rgba(17,42,107,0.18)] animate-fade-up">
+                    <section ref={reportPreviewRef} className="mt-8 sm:mt-10 scroll-mt-28 sm:scroll-mt-32 rounded-[28px] border-x border-b border-[rgba(205,224,255,0.4)] bg-[rgba(208,225,255,0.22)] overflow-hidden p-[clamp(16px,3vw,30px)] shadow-[0_18px_40px_rgba(17,42,107,0.18)] animate-fade-up">
                         <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
                             <div>
                                 <h2 className="m-0 text-[clamp(22px,2.6vw,34px)] font-bold text-[#f6f9ff] leading-tight">
@@ -447,14 +447,14 @@ const ReportForm = () => {
                             <button
                                 type="button"
                                 onClick={handleGenerateNewReport}
-                                className="border-none rounded-full bg-[#2f68ea] text-white px-4 py-2 text-sm font-semibold shadow-[0_10px_25px_rgba(15,23,42,0.24)] hover:opacity-90"
+                                className="border-none cursor-pointer  rounded-full bg-[#2f68ea] text-white px-4 py-2 text-sm font-semibold shadow-[0_10px_25px_rgba(15,23,42,0.24)] hover:opacity-90"
                             >
                                 Back to Form
                             </button>
                         </div>
 
                         <div className="animate-fade-up-delay-1">
-                            <InterviewReport reportData={reportData} inline />
+                            <InterviewReport reportData={reportData} reportId={activeReportId} inline />
                         </div>
                     </section>
                 ) : null}

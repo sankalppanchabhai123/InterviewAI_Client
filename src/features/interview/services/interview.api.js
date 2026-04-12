@@ -45,3 +45,14 @@ export async function getMyInterviewReports() {
     const response = await api.get("/mine");
     return response.data;
 }
+
+export async function downloadResumePdf(interviewReportId) {
+    const response = await api.post(`/resume/pdf/${interviewReportId}`, null, {
+        responseType: "blob",
+    });
+
+    return {
+        blob: response.data,
+        headers: response.headers,
+    };
+}
