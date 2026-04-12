@@ -72,6 +72,22 @@ const normalizeSkillGap = (item) => {
     };
 };
 
+const extractDownloadErrorMessage = async (error) => {
+    const data = error?.response?.data;
+
+    if (data instanceof Blob) {
+        try {
+            const text = await data.text();
+            const parsed = JSON.parse(text);
+            return parsed?.error || parsed?.message || "Unable to download resume right now.";
+        } catch {
+            return "Unable to download resume right now.";
+        }
+    }
+
+    return data?.error || data?.message || "Unable to download resume right now.";
+};
+
 const ReportBody = ({ data, reportId = null }) => {
     const [activeSection, setActiveSection] = useState("technical");
     const [openQuestionIndex, setOpenQuestionIndex] = useState(null);
@@ -97,7 +113,8 @@ const ReportBody = ({ data, reportId = null }) => {
             anchor.remove();
             window.URL.revokeObjectURL(objectUrl);
         } catch (error) {
-            setDownloadError(error?.response?.data?.message || "Unable to download resume right now.");
+            const message = await extractDownloadErrorMessage(error);
+            setDownloadError(message);
         } finally {
             setDownloadingResume(false);
         }
@@ -211,7 +228,7 @@ const ReportBody = ({ data, reportId = null }) => {
                             disabled={!reportId || downloadingResume}
                             className={`w-full rounded-xl px-3 py-2.5 text-sm font-semibold transition-all duration-200 ${!reportId || downloadingResume
                                 ? "bg-[rgba(255,255,255,0.1)] text-[#c5d8ff] border border-[rgba(255,255,255,0.16)] cursor-not-allowed"
-                                : "bg-[#2f68ea] text-white cursor-pointer hover-zoom bg-[#2f68ea] hover:bg-[#1d59c9]"
+                                : "bg-[#2f68ea] text-white cursor-pointer hover-zoom hover:bg-[#1d59c9]"
                                 }`}
                         >
                             <span className="inline-flex items-center justify-center gap-2 w-full">
