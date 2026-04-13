@@ -163,7 +163,7 @@ const ReportBody = ({ data, reportId = null }) => {
 
             {/* Score Card */}
             <div className="mb-12">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-7 max-w-md mx-auto text-center">
+                <div className="bg-[rgba(214,228,255,0.16)] rounded-2xl border border-[rgba(205,224,255,0.26)] overflow-hidden p-7 max-w-md mx-auto text-center shadow-[0_10px_26px_rgba(12,31,79,0.15)]">
                     <div className="relative inline-block">
                         <svg className="w-36 h-36">
                             <circle

@@ -5,30 +5,40 @@ import { UserAuth } from "./features/auth/components/protected";
 import Home from "./features/interview/pages/Home";
 import Result from "./features/interview/pages/Result";
 import ReportForm from "./features/interview/pages/ReportForm";
+import ErrorPage from "./features/interview/pages/ErrorPage";
 
 export const router = createBrowserRouter([
     {
-        path: "/",
-        element: <Home />
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "/",
+                element: <Home />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
+            },
+            {
+                path: "/register",
+                element: <Register />,
+            },
+            {
+                path: "/result",
+                element: <Result />,
+            },
+            {
+                path: "/report",
+                element: (
+                    <UserAuth>
+                        <ReportForm />
+                    </UserAuth>
+                ),
+            },
+            {
+                path: "*",
+                element: <ErrorPage statusCode={404} title="Page Not Found" message="The page you requested could not be found." />,
+            },
+        ],
     },
-    {
-        path: "/login",
-        element: <Login />
-    },
-    {
-        path: "/register",
-        element: <Register />
-    },
-    {
-        path: "/result",
-        element: <Result />
-    },
-    {
-        path: "/report",
-        element: (
-            <UserAuth>
-                <ReportForm />
-            </UserAuth>
-        )
-    },
-])
+]);
