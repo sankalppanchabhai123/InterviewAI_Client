@@ -296,7 +296,7 @@ export default function Home() {
                         <p className="m-0 text-white">© 2026 InterviewAI. All rights reserved.</p>
 
                         <div className="flex flex-wrap items-center justify-start md:justify-end gap-3 sm:gap-4 text-[#0f172a]">
-                            <a href="https://github.com/sankalppanchabhai123/Interview-AI-Api" rel="noreferrer" aria-label="GitHub" className="hover:opacity-80 transition-opacity">
+                            <a href="https://github.com/sankalppanchabhai123/InterviewAI_Client" rel="noreferrer" aria-label="GitHub" className="hover:opacity-80 transition-opacity">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M9 19c-4.5 1.5-4.5-2-6-2m12 4v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 4.77 5.07 5.07 0 0 0 18.91 1S17.73.65 15 2.48a13.38 13.38 0 0 0-6 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.75c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
                                 </svg>
