@@ -1,16 +1,64 @@
-# React + Vite
+# Interview AI Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend application for Interview AI.
 
-Currently, two official plugins are available:
+This client app lets users:
+- Register and login
+- Submit interview details (resume, self-description, and job description)
+- Generate AI-based interview reports
+- View previously generated reports
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Important Repositories
 
-## React Compiler
+- Frontend Repository: This repository
+- Backend Repository: https://github.com/sankalppanchabhai123/interview_Test
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+If you are running this project for the first time, please set up and run the backend first, then start the frontend.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+
+## Prerequisites
+
+Install these before starting:
+- Node.js (recommended: latest LTS)
+- npm
+- Running backend API from this repository:
+	https://github.com/sankalppanchabhai123/interview_Test
+
+## Quick Start (New Users)
+
+1. Clone frontend repository.
+2. Open the frontend folder.
+3. Install dependencies:
+	 npm install
+4. Create environment file:
+	 - Create a file named .env in the frontend root.
+	 - Add your API base URL, for example:
+		 VITE_API_BASE_URL=http://localhost:3000
+5. Start development server:
+	 npm run dev
+6. Open the local URL shown in terminal (usually http://localhost:5173).
+
+## Build for Production
+
+- Create production build:
+	npm run build
+- Preview production build locally:
+	npm run preview
+
+## Notes for Client / Reviewer
+
+- Frontend depends on backend APIs for authentication and report generation.
+- If pages load but API actions fail, check backend server status and frontend environment variables.
+- Ensure CORS and API URL are configured correctly in both frontend and backend.
+
+## Support
+
+If you need backend setup details, please use:
+https://github.com/sankalppanchabhai123/interview_Test
